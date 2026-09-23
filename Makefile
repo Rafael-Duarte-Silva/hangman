@@ -2,29 +2,42 @@ CC = gcc
 
 CFLAGS = -g -Wall -Wextra -std=c11 -Isrc
 
-SOURCEDIR = src/
-TESTDIR = tests/
-BINDIR = bin/
+SOURCEDIR = src
+BINDIR = bin
 
-HEADERS_FP := $(shell find $(SOURCEDIR) -type f -name "*.h")
-SOURCE_FP := $(shell find $(SOURCEDIR) -type f -name "*.c")
+SOURCE = $(SOURCEDIR)/main.c
+OLD_SOURCE = $(SOURCEDIR)/old_main.c
 
-OBJECTS := $(patsubst $(SOURCEDIR)%.c,$(BINDIR)%.o,$(SOURCE_FP))
+OBJECT = $(BINDIR)/main.o
+OLD_OBJECT = $(BINDIR)/old_main.o
 
-EXECUTABLE = $(BINDIR)main
+EXECUTABLE = $(BINDIR)/main
+OLD_EXECUTABLE = $(BINDIR)/old_main
+
+
+.PHONY: main old-main clean
 
 main: $(EXECUTABLE)
 	@./$(EXECUTABLE)
 
-$(EXECUTABLE): $(OBJECTS) | $(BINDIR)
-	$(CC) $(OBJECTS) -o $@
+old-main: $(OLD_EXECUTABLE)
+	@./$(OLD_EXECUTABLE)
 
-$(BINDIR)%.o: $(SOURCEDIR)%.c $(HEADERS_FP)
-	@mkdir -p $(dir $@)
+
+$(EXECUTABLE): $(OBJECT) | $(BINDIR)
+	$(CC) $(OBJECT) -o $@
+
+$(OLD_EXECUTABLE): $(OLD_OBJECT) | $(BINDIR)
+	$(CC) $(OLD_OBJECT) -o $@
+
+
+$(BINDIR)/%.o: $(SOURCEDIR)/%.c | $(BINDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
 
 $(BINDIR):
 	mkdir -p $(BINDIR)
+
 
 clean:
 	rm -rf $(BINDIR)
