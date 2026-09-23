@@ -1,5 +1,16 @@
+/*
+    This code was fixed by AI
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
+
+char perguntar(int i, int erro, char p[], char ldigitadas[]);
+void letdigitadas(int i, int erro2, int cont3, char letra, char letra2[]);
+void forca(int erro);
 
 int main()
 {
@@ -7,8 +18,8 @@ int main()
     char letra;
     char letra2[25] = "";
     char ldigitadas[25] = "";
-    char palavra[] = " ";
-    char p[] = " ";
+    char palavra[26] = "";
+    char p[26] = "";
 
     // contadores de loops ou marcadores de erros
     int i = 0;
@@ -39,7 +50,7 @@ int main()
     {
     case 0:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra0[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra0[i];
         }
@@ -47,7 +58,7 @@ int main()
 
     case 1:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra1[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra1[i];
         }
@@ -55,7 +66,7 @@ int main()
 
     case 2:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra2[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra2[i];
         }
@@ -63,7 +74,7 @@ int main()
 
     case 3:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra3[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra3[i];
         }
@@ -71,7 +82,7 @@ int main()
 
     case 4:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra4[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra4[i];
         }
@@ -79,7 +90,7 @@ int main()
 
     case 5:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra5[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra5[i];
         }
@@ -87,7 +98,7 @@ int main()
 
     case 6:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra6[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra6[i];
         }
@@ -95,7 +106,7 @@ int main()
 
     case 7:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra7[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra7[i];
         }
@@ -103,7 +114,7 @@ int main()
 
     case 8:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra8[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra8[i];
         }
@@ -111,7 +122,7 @@ int main()
 
     case 9:
         i = 0;
-        for (i = 0; i < 26; i++)
+        for (i = 0; palavra9[i] != '\0' && i < 25; i++)
         {
             palavra[i] = palavra9[i];
         }
@@ -124,7 +135,7 @@ int main()
     {
         if (palavra[i] == '.')
         {
-            palavra[rep] = "\b";
+            palavra[rep] = '\0';
             i2 = 1;
         }
 
@@ -145,7 +156,7 @@ int main()
 
     for (i = 0; i < 15; i++)
     {
-        ldigitadas[i] = "\b";
+        ldigitadas[i] = '\b';
     }
 
     i = 0;
@@ -223,14 +234,14 @@ int main()
     // Caso ganhe
     if (cont == rep)
     {
-        system("cls");
+        system("clear");
         printf("Parabens!!!\nVoce acertou a palavra: %s\n\n", p);
     }
 
     // Caso perca
     if (erro == 6)
     {
-        system("cls");
+        system("clear");
         printf("Voce errou a palavra\n\n");
 
         // Chama a função forca, a qual, mostra o desenho da forca de acordo com tanto de erros (ela é chamada novamente por causa da limpeza)
@@ -242,18 +253,18 @@ int main()
         printf("Voce deseja ver qual era a palavra? Sim(aperte space) Nao (Aperte qualquer tecla)\n");
 
         // É usada a mesma variável, pois, essa variável não está mais em uso após o fim do loop (isso economiza variáveis)
-        letra = getch();
+        scanf(" %c", &letra);
 
         // Caso aperte (space) entrará nessas condições ou caso aperte qualquer outra tecla o programa será encerrado
         if (letra == ' ')
         {
-            system("cls");
+            system("clear");
             printf("A palavra era: %s\n\n", palavra);
         }
     }
 }
 
-void perguntar(int i, int erro, char p[], char ldigitadas[])
+char perguntar(int i, int erro, char p[], char ldigitadas[])
 {
     char letra;
 
@@ -262,7 +273,7 @@ void perguntar(int i, int erro, char p[], char ldigitadas[])
     {
 
         // comando para limpas informações de printf (limpeza de informações de mensagens)
-        system("cls");
+        system("clear");
 
         // Chama a função forca, a qual, mostra o desenho da forca de acordo com tanto de erros
         forca(erro);
@@ -271,16 +282,18 @@ void perguntar(int i, int erro, char p[], char ldigitadas[])
         printf("(%s)\n\n", ldigitadas);
         printf("Letras desta palavra:\n\n");
         printf("%s\n\n", p);
-        letra = getch();
+        scanf(" %c", &letra);
 
         i++;
     }
+
+    return letra;
 }
 
 void letdigitadas(int i, int erro2, int cont3, char letra, char letra2[])
 {
     // Verifica se a letra ja foi digita anteriromente
-    for (i = 0; i < 26; i++)
+    for (i = 0; i < 25; i++)
     {
         if (letra2[i] == letra)
         {
@@ -293,15 +306,15 @@ void letdigitadas(int i, int erro2, int cont3, char letra, char letra2[])
 
             if (erro2 == 25)
             {
-                cont3++;
                 letra2[cont3] = letra;
+                cont3++;
             }
         }
     }
 
     if (i == 28)
     {
-        system("cls");
+        system("clear");
         printf("Voce ja digitou essa letra\n\n");
         system("pause");
         i = 10;
